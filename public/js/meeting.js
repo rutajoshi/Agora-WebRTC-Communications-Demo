@@ -530,6 +530,32 @@
             });
         }
 
+        function addingASLSpeakIcon(streamId) {
+            $("#agora-remote" + streamId).append("<a class='remote-asl-speak-icon' data-stream-id='" + streamId + "' href='#'><img src='images/icon_asl.png'></a>");
+
+            $(".remote-asl-speak-icon").off("click").on("click", function(e) {
+                var streamId = Number($(e.target).parent().data("stream-id"));
+                var index, length, obj;
+                for (index = 0, length = remoteStreamList.length; index < length; index += 1) {
+                    obj = remoteStreamList[index];
+                    if (obj.id === streamId) {
+                        // if (obj.aslEnabled) {
+                            var peer = $('#txtAccount2').val();
+                            session.messageInstantSend(peer, 'hello world' + count++);
+                            // obj.aslEnabled = false;
+                            // $(e.target).attr("src", "images/icon_speak.png");
+                            $(e.target).attr("src", "images/icon_asl.png");
+                        // } else {
+                        //     var peer = $('#txtAccount2').val();
+                        //     session.messageInstantSend(peer, 'hello world' + count++);
+                        //     // obj.aslEnabled = true;
+                        //     $(e.target).attr("src", "images/icon_asl.png");
+                        // }
+                    }
+                }
+            });
+        }
+
         function showStreamOnPeerLeave(streamId) {
             var size;
             var removed = removeStreamFromList(Number(streamId));
